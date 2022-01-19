@@ -23,7 +23,7 @@ class DialogManagerApi extends InheritedWidget {
 class DialogConfig {
   DialogConfig({
     required this.navigatorKey,
-    this.dialogs = const {},
+    this.dialogRoutes = const {},
     this.errorDialog,
     this.onGenerateDialogs,
   });
@@ -38,7 +38,7 @@ class DialogConfig {
   ///
   ///If no dialog implementation is found, [errorDialog] or the default
   ///error dialog (if [errorDialog] is null) is returned.
-  final Map<String, Widget Function(BuildContext)> dialogs;
+  final Map<String, Widget Function(BuildContext)> dialogRoutes;
 
   ///Dialog generator callback that allows binding data with dialogs.
   ///
@@ -178,7 +178,7 @@ class DialogConfig {
             );
       }
 
-      return dialogs[settings.name]!;
+      return dialogRoutes[settings.name]!;
     } catch (e) {
       return (ctx) => ErrorDialog(
             canDismissDialog: canDismissDialog,

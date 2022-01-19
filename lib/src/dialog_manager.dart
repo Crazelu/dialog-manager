@@ -7,7 +7,7 @@ class DialogManager extends StatelessWidget {
     Key? key,
     required this.child,
     required this.navigatorKey,
-    this.dialogs = const {},
+    this.dialogRoutes = const {},
     this.onGenerateDialogs,
     this.errorDialog,
     this.dialogKey,
@@ -27,7 +27,7 @@ class DialogManager extends StatelessWidget {
   ///
   ///If no dialog implementation is found, [errorDialog] or the default
   ///error dialog (if [errorDialog] is null) is returned.
-  final Map<String, Widget Function(BuildContext)> dialogs;
+  final Map<String, Widget Function(BuildContext)> dialogRoutes;
 
   ///Dialog generator callback that allows binding data with dialogs.
   ///
@@ -65,7 +65,7 @@ class DialogManager extends StatelessWidget {
       dialogConfig: DialogConfig(
         navigatorKey: navigatorKey,
         onGenerateDialogs: onGenerateDialogs,
-        dialogs: dialogs,
+        dialogRoutes: dialogRoutes,
         errorDialog: errorDialog,
       ),
       child: child,
