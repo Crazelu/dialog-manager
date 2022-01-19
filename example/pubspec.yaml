@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dialog_manager:
+  flutter_dialog_manager:
     path: ../
 
 

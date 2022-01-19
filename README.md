@@ -1,4 +1,4 @@
-## dialog_manager
+## flutter_dialog_manager
 
 A Flutter package that allows for neater declaration, abstraction and use of customisable dialogs.
 
@@ -8,13 +8,13 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 
 ```yaml
 dependencies:
-  dialog_manager: ^1.0..0
+  flutter_dialog_manager: ^1.0..0
 ```
 
 Import the package in your project:
 
 ```dart
-import 'package:dialog_manager/dialog_manager.dart';
+import 'package:flutter_dialog_manager/dialog_manager.dart';
 ```
 
 ## Getting started

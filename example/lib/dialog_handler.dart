@@ -1,4 +1,4 @@
-import 'package:dialog_manager/dialog_manager.dart';
+import 'package:flutter_dialog_manager/dialog_manager.dart';
 import 'package:flutter/material.dart';
 
 ///An abstraction of [DialogManager] with no direct dependence on [BuildContext]

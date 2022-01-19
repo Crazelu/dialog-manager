@@ -1,4 +1,4 @@
-import 'package:dialog_manager/dialog_manager.dart';
+import 'package:flutter_dialog_manager/dialog_manager.dart';
 import 'package:example/counter_dialog.dart';
 import 'package:example/dialog_handler.dart';
 import 'package:example/floating_dialog.dart';

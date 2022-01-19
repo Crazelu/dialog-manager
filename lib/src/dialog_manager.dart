@@ -1,6 +1,6 @@
-import 'package:dialog_manager/src/dialog_manager_api.dart';
+import 'package:flutter_dialog_manager/src/dialog_manager_api.dart';
 import 'package:flutter/material.dart';
-import 'package:dialog_manager/src/dialog_settings.dart';
+import 'package:flutter_dialog_manager/src/dialog_settings.dart';
 
 class DialogManager extends StatelessWidget {
   const DialogManager({

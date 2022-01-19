@@ -1,4 +1,4 @@
-name: dialog_manager
+name: flutter_dialog_manager
 description: A Flutter package that allows for neater declaration, abstraction and use of customisable dialogs.
 version: 1.0.0
 homepage: https://github.com/Crazelu/dialog-manager
