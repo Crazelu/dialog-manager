@@ -1,4 +1,4 @@
-import 'package:flutter_dialog_manager/dialog_manager.dart';
+import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
 import 'package:flutter/material.dart';
 
 enum DialogAlignment { start, center, end }
