@@ -39,7 +39,7 @@ class DialogManager extends StatelessWidget {
 
   final Widget child;
 
-  ///Error dialog shown when a dialog route that doesn't exist in [dialogs]
+  ///Error dialog shown when a dialog route that doesn't exist in [dialogRoutes]
   ///is pushed.
   final Widget? errorDialog;
 

@@ -53,7 +53,7 @@ Declare dialog UI implementations and their associated route names with `onGener
               );
             }
             break;
-      }
+      }}
 ```
 
 ```dart
