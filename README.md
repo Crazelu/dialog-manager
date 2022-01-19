@@ -8,7 +8,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 
 ```yaml
 dependencies:
-  flutter_dialog_manager: ^1.0..0
+  flutter_dialog_manager: ^1.0.0
 ```
 
 Import the package in your project:
