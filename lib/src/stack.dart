@@ -6,6 +6,14 @@ class Node<T> {
     this.value,
     this.next,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return other is Node && other.value == value && other.next == next;
+  }
+
+  @override
+  int get hashCode => Object.hash(value, next);
 }
 
 class Stack<T> {
