@@ -18,6 +18,7 @@ class _FormDialogState extends State<FormDialog> {
       builder: (dialogKey) => Form(
         key: _formKey,
         child: Container(
+          key: dialogKey,
           height: 250,
           width: 300,
           padding: const EdgeInsets.symmetric(
