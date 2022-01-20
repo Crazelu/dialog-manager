@@ -1,3 +1,4 @@
+import 'package:example/form_dialog.dart';
 import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
 import 'package:example/counter_dialog.dart';
 import 'package:example/dialog_handler.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
                 status: argument.status,
               );
             }
+            break;
+          case "/form":
+            return const FormDialog();
         }
       },
       child: MaterialApp(
@@ -100,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
             Wrap(
+              alignment: WrapAlignment.center,
               spacing: 20,
               children: [
                 TextButton(
@@ -149,8 +154,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
                   },
-                  child: const Text("Show dismissible floating dialog"),
+                  child: const Text("Show auto dismissible floating dialog"),
                 ),
+
+                //show dialog using a service that abstracts the dialog key
                 TextButton(
                   onPressed: () {
                     dialogHandler.showDialog(
@@ -163,6 +170,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   child: const Text("Dialog Handler demo"),
+                ),
+
+                //Demonstrates how results can be retrieved from dismissed dialogs
+                TextButton(
+                  onPressed: () {
+                    DialogManager.of(context)
+                        .showDialog(routeName: "/form")
+                        .then(
+                          (value) => setState(() {
+                            _counter = value as int;
+                          }),
+                        );
+                  },
+                  child: const Text("Form Dialog"),
                 ),
               ],
             ),
