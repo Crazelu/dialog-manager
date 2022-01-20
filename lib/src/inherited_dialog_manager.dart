@@ -7,21 +7,21 @@ import 'stack.dart' as stack;
 
 typedef DialogRouteGenerator = Widget? Function(DialogSettings);
 
-class DialogManagerApi extends InheritedWidget {
-  const DialogManagerApi({
+class InheritedDialogManager extends InheritedWidget {
+  const InheritedDialogManager({
     Key? key,
-    required this.dialogConfig,
+    required this.dialogHandler,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final DialogConfig dialogConfig;
+  final DialogHandler dialogHandler;
 
   @override
-  bool updateShouldNotify(covariant DialogManagerApi oldWidget) => false;
+  bool updateShouldNotify(covariant InheritedDialogManager oldWidget) => false;
 }
 
-class DialogConfig {
-  DialogConfig({
+class DialogHandler {
+  DialogHandler({
     required this.navigatorKey,
     this.dialogRoutes = const {},
     this.errorDialog,

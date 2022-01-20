@@ -1,4 +1,4 @@
-import 'package:flutter_dialog_manager/src/dialog_manager_api.dart';
+import 'package:flutter_dialog_manager/src/inherited_dialog_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dialog_manager/src/dialog_settings.dart';
 
@@ -43,26 +43,26 @@ class DialogManager extends StatelessWidget {
   ///is pushed.
   final Widget? errorDialog;
 
-  static DialogConfig of(BuildContext context) {
-    final DialogConfig? config = context
-        .dependOnInheritedWidgetOfExactType<DialogManagerApi>()
-        ?.dialogConfig;
+  static DialogHandler of(BuildContext context) {
+    final DialogHandler? handler = context
+        .dependOnInheritedWidgetOfExactType<InheritedDialogManager>()
+        ?.dialogHandler;
 
     assert(
-      config != null,
+      handler != null,
       'DialogManager operation requested with a context that does not include a DialogManager.'
       'The context used to show dialogs from the DialogManager must be that of a '
       'widget that is a descendant of a DialogManager widget.',
     );
 
-    return config!;
+    return handler!;
   }
 
   @override
   Widget build(BuildContext context) {
-    return DialogManagerApi(
+    return InheritedDialogManager(
       key: dialogKey,
-      dialogConfig: DialogConfig(
+      dialogHandler: DialogHandler(
         navigatorKey: navigatorKey,
         onGenerateDialogs: onGenerateDialogs,
         dialogRoutes: dialogRoutes,
