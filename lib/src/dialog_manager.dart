@@ -8,7 +8,7 @@ class DialogManager extends StatelessWidget {
     required this.child,
     required this.navigatorKey,
     this.dialogRoutes = const {},
-    this.onGenerateDialogs,
+    this.onGenerateDialog,
     this.errorDialog,
     this.dialogKey,
   }) : super(key: key);
@@ -35,7 +35,7 @@ class DialogManager extends StatelessWidget {
   ///the corresponding dialog name is looked up and it's associated widget constructed.
   ///Data passed from [showDialog] can be extracted from [DialogSettings] here and
   ///passed down to the widget.
-  final DialogRouteGenerator? onGenerateDialogs;
+  final DialogRouteGenerator? onGenerateDialog;
 
   final Widget child;
 
@@ -64,7 +64,7 @@ class DialogManager extends StatelessWidget {
       key: dialogKey,
       dialogHandler: DialogHandler(
         navigatorKey: navigatorKey,
-        onGenerateDialogs: onGenerateDialogs,
+        onGenerateDialog: onGenerateDialog,
         dialogRoutes: dialogRoutes,
         errorDialog: errorDialog,
       ),

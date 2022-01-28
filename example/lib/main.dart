@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DialogManager(
       navigatorKey: _navigatorKey,
-      onGenerateDialogs: (settings) {
+      onGenerateDialog: (settings) {
         switch (settings.name) {
           case "/counter":
             if (settings.arguments != null) {

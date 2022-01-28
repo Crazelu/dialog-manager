@@ -12,7 +12,7 @@ class FloatingDialogDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return DialogManager(
       navigatorKey: _navigatorKey,
-      onGenerateDialogs: (settings) {
+      onGenerateDialog: (settings) {
         switch (settings.name) {
           case "/floating":
             if (settings.arguments != null) {
