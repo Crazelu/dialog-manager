@@ -48,7 +48,7 @@ class DialogHandlerImpl implements DialogHandler {
   @override
   Future<Object?> showDialog({
     String routeName = "/",
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = const Duration(milliseconds: 1500),
     bool autoDismiss = false,
     Object? arguments,
     bool opaque = true,

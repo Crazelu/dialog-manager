@@ -1,14 +1,18 @@
+import 'package:example/dialog_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
+final _dialogHandler = DialogHandlerImpl();
 
-class FormDialogDemo extends StatelessWidget {
-  const FormDialogDemo({Key? key}) : super(key: key);
+class FormDialogDemoWithHandler extends StatelessWidget {
+  const FormDialogDemoWithHandler({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DialogManager(
+      dialogKey:
+          _dialogHandler.dialogKey, //pass a dialog key from your abstraction
       navigatorKey: _navigatorKey,
       dialogRoutes: {"/form": (_) => const FormDialog()},
       child: MaterialApp(
@@ -75,7 +79,8 @@ class _DemoPageState extends State<DemoPage> {
             //Demonstrates how results can be retrieved from dismissed dialogs
             TextButton(
               onPressed: () {
-                DialogManager.of(context).showDialog(routeName: "/form").then(
+                //show dialogs with methods exposed by your abstraction
+                _dialogHandler.showDialog(routeName: "/form").then(
                       (value) => setState(() {
                         _counter = value as int;
                       }),
@@ -140,7 +145,7 @@ class _FormDialogState extends State<FormDialog> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     //return the counter in the dismissDialog call
-                    DialogManager.of(context).dismissDialog(counter);
+                    _dialogHandler.dismissDialog(counter);
                   }
                 },
                 child: const Text("Reset counter"),

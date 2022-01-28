@@ -1,12 +1,7 @@
-import 'package:example/form_dialog.dart';
 import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
-import 'package:example/counter_dialog.dart';
-import 'package:example/dialog_handler.dart';
-import 'package:example/floating_dialog.dart';
 import 'package:flutter/material.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
-DialogHandler dialogHandler = DialogHandlerImpl();
 void main() {
   runApp(const MyApp());
 }
@@ -17,7 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogManager(
-      dialogKey: dialogHandler.dialogKey,
       navigatorKey: _navigatorKey,
       onGenerateDialogs: (settings) {
         switch (settings.name) {
@@ -28,17 +22,6 @@ class MyApp extends StatelessWidget {
               );
             }
             break;
-          case "/floating":
-            if (settings.arguments != null) {
-              final argument = settings.arguments as FloatingDialogArg;
-              return FloatingDialog(
-                message: argument.message,
-                status: argument.status,
-              );
-            }
-            break;
-          case "/form":
-            return const FormDialog();
         }
       },
       child: MaterialApp(
@@ -57,39 +40,33 @@ class MyApp extends StatelessWidget {
           ),
         ),
         navigatorKey: _navigatorKey,
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: const DemoPage(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class DemoPage extends StatefulWidget {
+  const DemoPage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<DemoPage> createState() => _DemoPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _DemoPageState extends State<DemoPage> {
   int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
-    DialogManager.of(context).showDialog(
-      routeName: "/counter",
-      arguments: _counter,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text("Counter Dialog Demo Page"),
       ),
       body: Center(
         child: Column(
@@ -102,90 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            const SizedBox(height: 20),
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 20,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    DialogManager.of(context).showDialog(
-                      routeName: "/floating",
-                      arguments: FloatingDialogArg(
-                        message: "Successfully tapped this button. Yay!",
-                        status: FloatingDialogStatus.success,
-                      ),
-                    );
-                  },
-                  child: const Text("Show floating success dialog"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    DialogManager.of(context).showDialog(
-                      routeName: "/floating",
-                      arguments: FloatingDialogArg(
-                        message: "Ugh! An unexpected error occurred",
-                        status: FloatingDialogStatus.error,
-                      ),
-                    );
-                  },
-                  child: const Text("Show floating error dialog"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    DialogManager.of(context).showDialog(
-                      routeName: "/floating",
-                      arguments: FloatingDialogArg(
-                        message: "FYI, I'm a cool little info dialog",
-                        status: FloatingDialogStatus.info,
-                      ),
-                    );
-                  },
-                  child: const Text("Show floating info dialog"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    DialogManager.of(context).showDialog(
-                      routeName: "/floating",
-                      autoDismiss: true,
-                      arguments: FloatingDialogArg(
-                        message: "I will self destruct in a moment",
-                        status: FloatingDialogStatus.info,
-                      ),
-                    );
-                  },
-                  child: const Text("Show auto dismissible floating dialog"),
-                ),
-
-                //show dialog using a service that abstracts the dialog key
-                TextButton(
-                  onPressed: () {
-                    dialogHandler.showDialog(
-                      routeName: "/floating",
-                      arguments: FloatingDialogArg(
-                        message:
-                            "Hehe, a dialog key abstraction brought me here ey?",
-                        status: FloatingDialogStatus.info,
-                      ),
-                    );
-                  },
-                  child: const Text("Dialog Handler demo"),
-                ),
-
-                //Demonstrates how results can be retrieved from dismissed dialogs
-                TextButton(
-                  onPressed: () {
-                    DialogManager.of(context)
-                        .showDialog(routeName: "/form")
-                        .then(
-                          (value) => setState(() {
-                            _counter = value as int;
-                          }),
-                        );
-                  },
-                  child: const Text("Form Dialog"),
-                ),
-              ],
+            TextButton(
+              onPressed: () {
+                _incrementCounter();
+                DialogManager.of(context).showDialog(
+                  routeName: "/counter",
+                  arguments: _counter,
+                );
+              },
+              child: const Text("Show counter dialog"),
             ),
           ],
         ),
@@ -194,6 +96,54 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class CounterDialog extends StatelessWidget {
+  final int counter;
+
+  const CounterDialog({
+    Key? key,
+    required this.counter,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogBuilder(
+      builder: (dialogKey) => Container(
+        key: dialogKey,
+        height: 250,
+        width: 300,
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 10,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "You have pushed the button this many times:",
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "$counter",
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const SizedBox(height: 10),
+            TextButton(
+              onPressed: () => DialogManager.of(context).dismissDialog(),
+              child: const Text("Ok"),
+            ),
+          ],
+        ),
       ),
     );
   }

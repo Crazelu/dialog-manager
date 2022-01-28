@@ -70,7 +70,7 @@ class DialogHandler {
   /// Optional [arguments] can be passed down to dialogs generated with [onGenerateDialogs].
   Future<Object?> showDialog({
     String routeName = "/",
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = const Duration(milliseconds: 1500),
     bool autoDismiss = false,
     Object? arguments,
     bool opaque = true,
@@ -105,6 +105,7 @@ class DialogHandler {
   void dismissDialog([Object? result]) {
     //if a timer is active, cancel to prevent another navigation
     _dismissalTimer?.cancel();
+    _dismissalTimer = null;
     navigatorKey.currentState?.pop(result);
   }
 
