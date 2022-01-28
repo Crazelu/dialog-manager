@@ -3,7 +3,6 @@ import 'package:flutter_dialog_manager/src/dialog_settings.dart';
 import 'package:flutter_dialog_manager/src/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'stack.dart' as stack;
 
 typedef DialogRouteGenerator = Widget? Function(DialogSettings);
 
@@ -52,29 +51,6 @@ class DialogHandler {
   ///is pushed.
   final Widget? errorDialog;
 
-  ///Stack of completers bound to the dialogs on screen.
-  ///
-  ///This allows dialogs to be shown over each other and be completed individually
-  ///i.e the results for each dialog is intact once it's completed.
-  final stack.Stack<Completer<Object?>> _completerStack = stack.Stack();
-
-  ///Resolves the last completer from the [_completerStack] if any.
-  ///When [showDialog] calls are awaited, this is responsible for returning [result]
-  ///to the caller after the future has finished executing.
-  bool _dialogComplete([Object? result]) {
-    try {
-      final completer = _completerStack.pop();
-
-      if (completer != null && !completer.isCompleted) {
-        completer.complete(result);
-      }
-
-      return completer != null;
-    } catch (e) {
-      return false;
-    }
-  }
-
   ///Timer object used to schedule an auto dismissal of dialogs
   Timer? _dismissalTimer;
 
@@ -100,7 +76,7 @@ class DialogHandler {
     bool opaque = true,
     Color? barrierColor,
   }) {
-    navigatorKey.currentState?.push(
+    final result = navigatorKey.currentState?.push(
       DialogRoute(
         context: navigatorKey.currentContext!,
         builder: _getDialog(
@@ -122,20 +98,14 @@ class DialogHandler {
       });
     }
 
-    final completer = Completer<Object?>();
-    _completerStack.push(completer);
-
-    return completer.future;
+    return result!;
   }
 
   ///Dismisses current dialog
   void dismissDialog([Object? result]) {
-    final shouldPop = _dialogComplete(result);
-    if (shouldPop) {
-      //if a timer is active, cancel to prevent another navigation
-      _dismissalTimer?.cancel();
-      navigatorKey.currentState?.pop();
-    }
+    //if a timer is active, cancel to prevent another navigation
+    _dismissalTimer?.cancel();
+    navigatorKey.currentState?.pop(result);
   }
 
   ///Returns `true` if [tapDetails] contains any offset
