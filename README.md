@@ -41,10 +41,10 @@ Also pass the navigator key to `MaterialApp`.
 
 ## Usage
 
-Declare dialog UI implementations and their associated route names with `onGenerateDialogs` or `dialogRoutes` 
+Declare dialog UI implementations and their associated route names with `onGenerateDialog` or `dialogRoutes` 
 
 ```dart
-  onGenerateDialogs: (settings) {
+  onGenerateDialog: (settings) {
         switch (settings.name) {
           case "/counter":
             if (settings.arguments != null) {
@@ -71,6 +71,8 @@ Show dialog in your UI
       arguments: _counter,
     );
 ```
+
+Explore detailed examples [here](https://github.com/Crazelu/dialog-manager/tree/main/example).
 
 ## Contributions
 
