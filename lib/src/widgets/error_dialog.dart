@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 typedef DismissDialogCallback = bool Function({
   required TapDownDetails tapDetails,
   required GlobalKey<State<StatefulWidget>> dialogKey,
-  double dialogMargin,
 });
 
 ///Default error dialog for [DialogManager].

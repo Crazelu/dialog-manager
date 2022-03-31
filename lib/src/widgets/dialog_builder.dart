@@ -21,6 +21,8 @@ class DialogBuilder extends StatefulWidget {
     required this.builder,
     this.alignment = DialogAlignment.center,
     this.debugLabel,
+    this.dismissible = true,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   ///Builder method that returns the dialog.
@@ -36,6 +38,14 @@ class DialogBuilder extends StatefulWidget {
   ///
   ///Defaults to [DialogAlignment.center]
   final DialogAlignment alignment;
+
+  ///Whether dialog can be dismissed by tapping any area in the barrier.
+  final bool dismissible;
+
+  ///Position of dialog in the horizontal axis.
+  ///
+  ///Defaults to [CrossAxisAlignment.center]
+  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   State<DialogBuilder> createState() => _DialogBuilderState();
@@ -69,10 +79,11 @@ class _DialogBuilderState extends State<DialogBuilder> {
         //if user taps on any area outside the space the dialog
         //takes on the screen, you can dismiss the dialog
         //to simulate the native dialog dismissal with Flutter dialogs
-        if (DialogManager.of(context).canDismissDialog(
-          tapDetails: details,
-          dialogKey: dialogKey,
-        )) {
+        if (widget.dismissible &&
+            DialogManager.of(context).canDismissDialog(
+              tapDetails: details,
+              dialogKey: dialogKey,
+            )) {
           DialogManager.of(context).dismissDialog();
         }
       },
@@ -82,6 +93,7 @@ class _DialogBuilderState extends State<DialogBuilder> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
+            crossAxisAlignment: widget.crossAxisAlignment,
             mainAxisAlignment: alignment,
             children: [
               widget.builder(dialogKey),

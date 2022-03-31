@@ -116,9 +116,18 @@ class DialogHandler {
   bool canDismissDialog({
     required TapDownDetails tapDetails,
     required GlobalKey dialogKey,
-    double dialogMargin = 0,
   }) {
     try {
+      EdgeInsets margin = EdgeInsets.zero;
+      try {
+        if (dialogKey.currentWidget is Container) {
+          margin =
+              ((dialogKey.currentWidget as Container).margin as EdgeInsets?) ??
+                  EdgeInsets.zero;
+        }
+        // ignore: empty_catches
+      } catch (e) {}
+
       final size = navigatorKey.currentContext!.size!;
       final height = size.height;
       final width = size.width;
@@ -129,8 +138,8 @@ class DialogHandler {
 
       return screenOffset.dy < (height - dialogHeight) / 2 ||
           screenOffset.dy > (height + dialogHeight) / 2 ||
-          screenOffset.dx < ((width / 2) - (dialogWidth / 2) - dialogMargin) ||
-          screenOffset.dx > ((width / 2) + (dialogWidth / 2) + dialogMargin);
+          screenOffset.dx < ((width / 2) - (dialogWidth / 2) + margin.left) ||
+          screenOffset.dx > ((width / 2) + (dialogWidth / 2) - margin.right);
     } catch (e) {
       return false;
     }
