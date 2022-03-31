@@ -10,11 +10,15 @@ enum DialogAlignment { start, center, end }
 ///[GlobalKey] should be set as the key of the widget to enable dismissal
 ///of dialog when any area in the barrier is tapped.
 ///
-///[alignment] -> Position of dialog in the vertical axis.
+///[alignment] -> Position of dialog along the vertical axis.
 ///
 ///Defaults to [DialogAlignment.center]
 ///
 ///[debugLabel] -> Debug label for [GlobalKey] accessed from [builder]
+///
+///[dismissible] -> Whether dialog can be dismissed by tapping any area in the barrier.
+///
+///[crossAxisAlignment] -> Position of dialog along the horizontal axis.
 class DialogBuilder extends StatefulWidget {
   const DialogBuilder({
     Key? key,
@@ -34,7 +38,7 @@ class DialogBuilder extends StatefulWidget {
   ///Debug label for [GlobalKey] accessed from [builder]
   final String? debugLabel;
 
-  ///Position of dialog in the vertical axis.
+  ///Position of dialog along the vertical axis.
   ///
   ///Defaults to [DialogAlignment.center]
   final DialogAlignment alignment;
@@ -42,7 +46,7 @@ class DialogBuilder extends StatefulWidget {
   ///Whether dialog can be dismissed by tapping any area in the barrier.
   final bool dismissible;
 
-  ///Position of dialog in the horizontal axis.
+  ///Position of dialog along the horizontal axis.
   ///
   ///Defaults to [CrossAxisAlignment.center]
   final CrossAxisAlignment crossAxisAlignment;

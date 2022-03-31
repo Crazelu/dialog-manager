@@ -1,3 +1,9 @@
+## 1.0.0+4
+
+* Includes crossAxisAlignment for specifying dialog's position along the horizontal axis.
+* Enables customization of dialog's dismissable property.
+* Accounts for horizontal margins in barrier dismissal offset algorithm.
+
 ## 1.0.0+3
 
 * Utilizes Navigator API's stack

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter_dialog_manager/src/dialog_settings.dart';
 import 'package:flutter_dialog_manager/src/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 typedef DialogRouteGenerator = Widget? Function(DialogSettings);
 
